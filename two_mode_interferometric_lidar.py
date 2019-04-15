@@ -7,6 +7,9 @@
 import numpy as np
 import tensorflow as tf
 
+# Custom modules
+import qubit
+
 
 class two_mode_interferometer(object):
     '''Builds objects necessary to simulate effects stacking Mach-Zehnder
@@ -28,10 +31,12 @@ class two_mode_interferometer(object):
         self.N = N
         self.scalar_alpha = np.sqrt(self.N)
         self.N_alpha = (2*(1 + np.euler(-(np.abs(self.scalar_alpha))^2)))^(-1/2)
-        if css != None:
-            self.css = css
-        else:
-            self.css =
+
+        # initialize coherent superposition state
+        self.css = qubit.Q_State(register=self.N)
+
+        # initialize coherent state
+        self.cs = qubit.Q_State(register=self.N)
 
         if cs != None:
             self.cs = cs

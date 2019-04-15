@@ -9,8 +9,9 @@ def draw_coherent_MUS_plot(n=4):
     fig = plt.figure()
     ax = fig.add_subplot(2,1,1)
     ax.axis("equal")
-#    ax.set_ylim(ymin=0)
-    ax.set_xlim(xmin=0)
+    ax.set_ylim(ymin=0.0, ymax=np.sqrt(n)+n)
+    ax.set_xlim(xmin=0.0, xmax=np.sqrt(n)+n)
+    plt.xlim(xmin=0.0)
 
     # Plotting the Classical State
     y0 = np.sqrt(16*R**2/17)
@@ -106,8 +107,8 @@ def draw_coherent_MUS_plot(n=4):
     hypot_to_sqz_btm = hypot_sqz - n/2
     y_btm_perp_sqz = hypot_to_sqz_btm * np.sin(deg_radial_to_horizontal_sqz)
     x_btm_perp_sqz = hypot_to_sqz_btm * np.cos(deg_radial_to_horizontal_sqz)
-    perp_slope_sqz = -y2/x2
-    x_btm_perp_coords_sqz = np.linspace(x_btm_perp_sqz - np.sqrt(n)/3, x_btm_perp_sqz + np.sqrt(n)/3, 10)
+    perp_slope_sqz = -x2/y2
+    x_btm_perp_coords_sqz = np.linspace(x_btm_perp_sqz - np.sqrt(n)/5, x_btm_perp_sqz + np.sqrt(n)/5, 10)
     b_btm_sqz = get_intercept(x_btm_perp_sqz, y_btm_perp_sqz, perp_slope_sqz)
     y_btm_perp_coords_sqz = perp_slope_sqz * x_btm_perp_coords_sqz + b_btm_sqz
     plt.plot(x_btm_perp_coords_sqz, y_btm_perp_coords_sqz, linestyle='--', marker="None", color="b")
@@ -116,7 +117,7 @@ def draw_coherent_MUS_plot(n=4):
     hypot_to_sqz_top = hypot_sqz + n/2
     y_top_perp_sqz = hypot_to_sqz_top * np.sin(deg_radial_to_horizontal_sqz)
     x_top_perp_sqz = hypot_to_sqz_top * np.cos(deg_radial_to_horizontal_sqz)
-    x_top_perp_coords_sqz = np.linspace(x_top_perp_sqz - np.sqrt(n)/2.5, x_top_perp_sqz + np.sqrt(n)/2.5, 10)
+    x_top_perp_coords_sqz = np.linspace(x_top_perp_sqz - np.sqrt(n)/4, x_top_perp_sqz + np.sqrt(n)/4, 10)
     b_top_sqz = get_intercept(x_top_perp_sqz, y_top_perp_sqz, perp_slope_sqz)
     y_top_perp_coords_sqz = perp_slope_sqz * x_top_perp_coords_sqz + b_top_sqz
     plt.plot(x_top_perp_coords_sqz, y_top_perp_coords_sqz, linestyle='--', marker="None", color="b")

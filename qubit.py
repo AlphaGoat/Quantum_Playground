@@ -55,7 +55,7 @@ class Qubit(object):
 class Q_State(Qubit):
     instanceNum = 0
 
-    def __init__(self, register=1, state=None):
+    def __init__(self, register=1, state=None, name='Q_state0'):
         '''Initializing a state consisting of a number of qbits.
            If no values for the state are offered, the Q_state
            is initialized as |000...00>
@@ -73,18 +73,19 @@ class Q_State(Qubit):
         Q_State.instanceNum += 1
         self.register = register
         self.n = 2^register
+        self.name = name
 
         if state:
             # Check if state is in correct format. Otherwise raise
             # error
             if state.dtype != np.complex128:
-                raise ValueError('\nInput needs to be numpy array
-                            of dtype np.complex128')
+                raise ValueError('''\nInput needs to be numpy array
+                            of dtype np.complex128''')
             # check if state is 2^n long. If not, raise error
             if state.shape[0] != 2^num_qbits:
-                raise ValueError('\nLength of state vector not 
+                raise ValueError('''\nLength of state vector not 
                         consistent with the number of qubits
-                        being initialized')
+                        being initialized''')
             state = state/np.sqrt(np.linalg.norm(state))
             self.state = tf.Variable("q_state{}".format(
                                 Q_State.instanceNum-1),
@@ -97,9 +98,14 @@ class Q_State(Qubit):
                                 Q_State.instanceNum-1),
                                 state)
 
+        def __entangled__(self):
+            '''Initializes an entangled state between multiple qubits'''
+
+
 
 def find_bit_representation(register_len, measured_state):
-    '''helper function to help determined 'measured' bit string
+    '''
+       helper function to help determined 'measured' bit string
        for quantum state
     '''
 
