@@ -4,6 +4,11 @@ import numpy as np
 
 def draw_coherent_MUS_plot(n=4):
 
+    # Set the font
+    plt.rcParams["font.family"] = "Times New Roman"
+
+    # Set the radial extending to the center of the coherent state
+    # equal to the number of photons being represented
     R = n
 
     fig = plt.figure()
@@ -70,6 +75,11 @@ def draw_coherent_MUS_plot(n=4):
     b_top = get_intercept(x_top_perp, y_top_perp, perp_slope)
     y_top_perp_coords = perp_slope * x_top_perp_coords + b_top
     plt.plot(x_top_perp_coords, y_top_perp_coords, linestyle='--', marker="None", color="b")
+
+    # Draw angle to radial extending to coherent state
+    phase_angle = patches.Arc((0.0,0.0), n/4, n/4, theta1=0.0, theta2=45.0)
+    ax.add_patch(phase_angle)
+    ax.annotate(u'\u03A6', xy=(n/4,n/4), xytext=(0.7, 0.3))
 
     # Plot squeezed state MUS
     x2 = y0
